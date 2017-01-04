@@ -30,7 +30,7 @@ class Mailboxer::Receipt < ActiveRecord::Base
   scope :is_read, lambda { where(:is_read => true) }
   scope :is_unread, lambda { where(:is_read => false) }
 
-  encrypted_id key: 'gasdf87a98sdfa8sd63'
+  obfuscate_id
 
   class << self
     #Marks all the receipts from the relation as read
