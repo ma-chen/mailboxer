@@ -1,3 +1,5 @@
 class Mailboxer::AttachmentUploader < CarrierWave::Uploader::Base
-  storage :file
+  def store_dir
+    "uploads/messages/#{model.conversation_id}/#{model.id}"
+  end
 end
