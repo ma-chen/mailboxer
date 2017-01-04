@@ -30,6 +30,8 @@ class Mailboxer::Notification < ActiveRecord::Base
     where("#{Mailboxer::Notification.quoted_table_name}.expires is NULL OR #{Mailboxer::Notification.quoted_table_name}.expires > ?", Time.now)
   }
 
+  obfuscate_id
+
   class << self
     #Sends a Notification to all the recipients
     def notify_all(recipients, subject, body, obj = nil, sanitize_text = true, notification_code=nil, send_mail=true, sender=nil)
