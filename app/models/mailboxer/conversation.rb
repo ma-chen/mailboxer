@@ -40,8 +40,8 @@ class Mailboxer::Conversation < ActiveRecord::Base
         order(updated_at: :desc).distinct
   }
 
-  obfuscate_id
-  
+  encrypted_id key: 'gasdf87a98sdfa8sd63'
+
   #Mark the conversation as read for one of the participants
   def mark_as_read(participant)
     return unless participant

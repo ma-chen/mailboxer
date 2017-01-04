@@ -30,7 +30,7 @@ class Mailboxer::Notification < ActiveRecord::Base
     where("#{Mailboxer::Notification.quoted_table_name}.expires is NULL OR #{Mailboxer::Notification.quoted_table_name}.expires > ?", Time.now)
   }
 
-  obfuscate_id
+  encrypted_id key: 'gasdf87a98sdfa8sd63'
 
   class << self
     #Sends a Notification to all the recipients
