@@ -5,7 +5,13 @@ class Mailboxer::AttachmentUploader < CarrierWave::Uploader::Base
     "uploads/messages/#{model.conversation_id}/#{model.id}"
   end
 
-  version :small do
+  version :small, :if => :image? do
     process resize_to_fill: [200,200]
+  end
+
+  protected
+
+  def image?(new_file)
+    new_file.content_type.start_with? 'image'
   end
 end
