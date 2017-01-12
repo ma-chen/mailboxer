@@ -171,6 +171,10 @@ class Mailboxer::Conversation < ActiveRecord::Base
     receipts_for(participant).not_trash.is_unread.count != 0
   end
 
+  def count_unread_messages(participant)
+    receipts_for(participant).not_trash.is_unread.count
+  end
+
   # Creates a opt out object
   # because by default all participants are opt in
   def opt_out(participant)
