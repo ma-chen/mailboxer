@@ -9,6 +9,10 @@ class Mailboxer::AttachmentUploader < CarrierWave::Uploader::Base
     process resize_to_fit: [200,200]
   end
 
+  version :medium, :if => :image? do
+    process resize_to_fit: [415,-1]
+  end
+
   protected
 
   def image?(new_file)
