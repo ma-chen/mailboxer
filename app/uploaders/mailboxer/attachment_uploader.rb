@@ -9,12 +9,12 @@ class Mailboxer::AttachmentUploader < CarrierWave::Uploader::Base
     process resize_to_fit: [200,200]
   end
 
-  version :medium, :if => :image? && :is_landscape? do
-    process resize_to_fit: [415,-1]
-  end
-
-  version :medium, :if => :image? && :is_portrait? do
-    process resize_to_fit: [-1,215]
+  version :medium, :if => :image? do
+    if is_landscape? current_path
+      process resize_to_fit: [415, -1]
+    else
+      process resize_to_fit: [-1, 215]
+    end
   end
 
   protected
@@ -23,13 +23,13 @@ class Mailboxer::AttachmentUploader < CarrierWave::Uploader::Base
     new_file.content_type.start_with? 'image'
   end
 
-  def is_landscape? picture
-    image = MiniMagick::Image.open(picture.path)
+  def is_landscape? path
+    image = MiniMagick::Image.open(path)
     image[:width] >= image[:height]
   end
 
-  def is_portrait? picture
-    image = MiniMagick::Image.open(picture.path)
+  def is_portrait? path
+    image = MiniMagick::Image.open(path)
     image[:width] < image[:height]
   end
 end
