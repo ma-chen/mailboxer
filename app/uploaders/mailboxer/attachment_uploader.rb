@@ -6,12 +6,11 @@ class Mailboxer::AttachmentUploader < CarrierWave::Uploader::Base
   end
 
   version :small, :if => :image? do
-    process resize_to_fit: [200,200]
+    process resize_to_fit: [60,60]
   end
 
   version :medium, :if => :image? do
-    process resize_to_fit: [215,-1], if: :is_landscape?
-    process resize_to_fit: [100000,215], if: :is_portrait?
+    process resize_to_fit: [100,100]
   end
 
   protected
