@@ -36,8 +36,9 @@ class Mailboxer::Receipt < ActiveRecord::Base
   def search_data
     attributes.merge(
       conversation_id: notification.conversation_id,
-      body: notification.body,
-      subject: notification.subject
+      conversation_subject: notification.conversation.subject,
+      message_body: notification.body,
+      message_subject: notification.subject
     )
   end
 
