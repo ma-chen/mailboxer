@@ -18,14 +18,4 @@ class Mailboxer::AttachmentUploader < CarrierWave::Uploader::Base
   def image?(new_file)
     new_file.content_type.start_with? 'image'
   end
-
-  def is_landscape?(new_file)
-    image = MiniMagick::Image::read(File.binread(@file.file))
-    image[:width] >= image[:height]
-  end
-
-  def is_portrait?(new_file)
-    image = MiniMagick::Image::read(File.binread(@file.file))
-    image[:width] < image[:height]
-  end
 end
