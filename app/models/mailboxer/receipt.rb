@@ -32,6 +32,13 @@ class Mailboxer::Receipt < ActiveRecord::Base
 
   obfuscate_id
 
+  searchkick settings: {index: {max_result_window:1000000}}
+  def search_data
+    attributes.merge(
+      conversation_id: notification.conversation_id
+    )
+  end
+
   class << self
     #Marks all the receipts from the relation as read
     def mark_as_read(options={})
