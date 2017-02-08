@@ -6,10 +6,6 @@ class Mailboxer::AttachmentUploader < CarrierWave::Uploader::Base
   end
 
   version :small, :if => :image? do
-    process resize_to_fit: [60,60]
-  end
-
-  version :medium, :if => :image? do
     process resize_to_fit: [100,100]
   end
 
