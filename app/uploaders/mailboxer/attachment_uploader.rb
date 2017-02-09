@@ -1,5 +1,5 @@
 class Mailboxer::AttachmentUploader < CarrierWave::Uploader::Base
-  include CarrierWave::MiniMagick
+  include CarrierWave::RMagick
 
   def store_dir
     "uploads/messages/#{model.conversation_id}/#{model.id}"
