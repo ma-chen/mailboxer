@@ -32,7 +32,7 @@ class Mailboxer::Receipt < ActiveRecord::Base
 
   obfuscate_id
 
-  searchkick settings: {index: {max_result_window:1000000}}, word_middle: [:subject, :body], highlight: [:subject, :body]
+  searchkick settings: {index: {max_result_window:1000000}}, text_middle: [:subject, :body], highlight: [:subject, :body]
   def search_data
     attributes.merge(
       conversation_id: notification.conversation_id,
