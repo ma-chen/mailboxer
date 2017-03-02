@@ -42,6 +42,14 @@ class Mailboxer::Receipt < ActiveRecord::Base
     )
   end
 
+  after_save :conversation_esreindex
+  after_create :conversation_esreindex
+  after_destroy :conversation_esreindex
+
+  def conversation_esreindex
+    self.notification.conversation.reindex
+  end
+
   class << self
     #Marks all the receipts from the relation as read
     def mark_as_read(options={})

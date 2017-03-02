@@ -41,6 +41,15 @@ class Mailboxer::Conversation < ActiveRecord::Base
   }
 
   obfuscate_id
+
+  searchkick settings: {index: {max_result_window:1000000}}, text_middle: [], highlight: []
+  def search_data
+    attributes.merge(
+      participants: participants.map(&:name).join(","),
+      is_trashed: participants.map{|p| p.id+":"+is_trashed?(p).to_s}.join(","),
+      is_read: participants.map{|p| p.id+":"+is_read?(p).to_s}.join(",")
+    )
+  end
   
   #Mark the conversation as read for one of the participants
   def mark_as_read(participant)
