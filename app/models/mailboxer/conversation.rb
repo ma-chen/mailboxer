@@ -46,8 +46,8 @@ class Mailboxer::Conversation < ActiveRecord::Base
   def search_data
     attributes.merge(
       participants: participants.map(&:name).join(","),
-      is_trashed: participants.map{|p| p.id+":"+is_trashed?(p).to_s}.join(","),
-      is_read: participants.map{|p| p.id+":"+is_read?(p).to_s}.join(",")
+      is_trashed: participants.map{|p| p.id.to_s+":"+is_trashed?(p).to_s}.join(","),
+      is_read: participants.map{|p| p.id.to_s+":"+is_read?(p).to_s}.join(",")
     )
   end
   
