@@ -48,7 +48,9 @@ class Mailboxer::Conversation < ActiveRecord::Base
       to_param: to_param.to_i,
       participants: participants.map{|p| "-"+p.id.to_s+"-"}.join(","),
       is_trashed: participants.map{|p| "-"+p.id.to_s+"-:"+is_trashed?(p).to_s}.join(","),
-      is_read: participants.map{|p| "-"+p.id.to_s+"-:"+is_read?(p).to_s}.join(",")
+      is_read: participants.map{|p| "-"+p.id.to_s+"-:"+is_read?(p).to_s}.join(","),
+      originator: originator.id,
+      last_sender: last_sender.id
     )
   end
   
