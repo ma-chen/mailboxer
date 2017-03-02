@@ -30,7 +30,13 @@ class Mailboxer::Receipt < ActiveRecord::Base
   scope :is_read, lambda { where(:is_read => true) }
   scope :is_unread, lambda { where(:is_read => false) }
 
-  obfuscate_id
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+  def slug_candidates
+    [
+      :id
+    ]
+  end
 
   searchkick settings: {index: {max_result_window:1000000}}, text_middle: [:subject, :body], highlight: [:subject, :body]
   def search_data

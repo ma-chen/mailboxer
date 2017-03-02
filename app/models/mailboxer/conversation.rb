@@ -40,7 +40,13 @@ class Mailboxer::Conversation < ActiveRecord::Base
         order(updated_at: :desc).distinct
   }
 
-  obfuscate_id
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+  def slug_candidates
+    [
+      :id
+    ]
+  end
 
   searchkick settings: {index: {max_result_window:1000000}}, text_middle: [], highlight: []
   def search_data

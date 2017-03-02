@@ -30,7 +30,13 @@ class Mailboxer::Notification < ActiveRecord::Base
     where("#{Mailboxer::Notification.quoted_table_name}.expires is NULL OR #{Mailboxer::Notification.quoted_table_name}.expires > ?", Time.now)
   }
 
-  obfuscate_id
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+  def slug_candidates
+    [
+      :id
+    ]
+  end
 
   class << self
     #Sends a Notification to all the recipients
