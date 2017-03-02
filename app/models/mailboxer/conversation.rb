@@ -45,9 +45,9 @@ class Mailboxer::Conversation < ActiveRecord::Base
   searchkick settings: {index: {max_result_window:1000000}}, text_middle: [], highlight: []
   def search_data
     attributes.merge(
-      participants: participants.map(&:name).join(","),
-      is_trashed: participants.map{|p| p.id.to_s+":"+is_trashed?(p).to_s}.join(","),
-      is_read: participants.map{|p| p.id.to_s+":"+is_read?(p).to_s}.join(",")
+      participants: participants.map{|p| "-"+p.id.to_s+"-"}.join(","),
+      is_trashed: participants.map{|p| "-"+p.id.to_s+"-:"+is_trashed?(p).to_s}.join(","),
+      is_read: participants.map{|p| "-"+p.id.to_s+"-:"+is_read?(p).to_s}.join(",")
     )
   end
   
