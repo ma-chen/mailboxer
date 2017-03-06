@@ -43,6 +43,7 @@ class Mailboxer::Receipt < ActiveRecord::Base
     attributes.merge(
       conversation_id: notification.conversation_id,
       conversation_subject: notification.conversation_id ? message.conversation.subject : '',
+      notification_slug: notification.slug,
       body: notification.body,
       subject: notification.subject
     )
