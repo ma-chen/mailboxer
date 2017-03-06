@@ -44,6 +44,7 @@ class Mailboxer::Receipt < ActiveRecord::Base
       conversation_id: notification.conversation_id,
       conversation_subject: notification.conversation_id ? message.conversation.subject : '',
       notification_slug: notification.slug,
+      sender: notification.sender_id,
       body: notification.body,
       subject: notification.subject
     )
