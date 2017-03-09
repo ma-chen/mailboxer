@@ -53,6 +53,10 @@ class Mailboxer::Receipt < ActiveRecord::Base
             original: message.attachment.url,
             small: message.attachment.small.url
           }
+        } : nil,
+      notified_object: notification.notified_object.present? ? {
+          type: notification.notified_object_type,
+          id: notification.notified_object_id
         } : nil
     )
   end
