@@ -47,7 +47,7 @@ class Mailboxer::Receipt < ActiveRecord::Base
       sender: notification.sender_id,
       body: notification.body,
       subject: notification.subject,
-      attachment: message.attachment.present? ? {
+      attachment: notification.conversation_id && message.attachment.present? ? {
           content_type: message.attachment.content_type,
           urls: {
             original: message.attachment.url,
