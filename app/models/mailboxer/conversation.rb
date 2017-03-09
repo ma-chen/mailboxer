@@ -61,7 +61,6 @@ class Mailboxer::Conversation < ActiveRecord::Base
   end
 
   after_save :es_reindex
-  after_create :es_reindex
   after_destroy :es_reindex
 
   def es_reindex
