@@ -59,6 +59,17 @@ class Mailboxer::Conversation < ActiveRecord::Base
       last_sender: last_sender.id
     )
   end
+
+  after_save :es_reindex
+  after_create :es_reindex
+  after_destroy :es_reindex
+
+  def es_reindex
+    self.reindex
+    self.receipts.each do |receipt|
+      receipt.reindex
+    end
+  end
   
   #Mark the conversation as read for one of the participants
   def mark_as_read(participant)

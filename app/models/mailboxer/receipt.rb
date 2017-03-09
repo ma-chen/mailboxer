@@ -57,12 +57,13 @@ class Mailboxer::Receipt < ActiveRecord::Base
     )
   end
 
-  after_save :conversation_esreindex
-  after_create :conversation_esreindex
-  after_destroy :conversation_esreindex
+  after_save :es_reindex
+  after_create :es_reindex
+  after_destroy :es_reindex
 
-  def conversation_esreindex
+  def es_reindex
     self.notification.conversation.reindex
+    self.reindex
   end
 
   class << self

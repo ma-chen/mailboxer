@@ -13,20 +13,6 @@ class Mailboxer::Message < Mailboxer::Notification
 
   mount_uploader :attachment, Mailboxer::AttachmentUploader
 
-  after_save :conversation_esreindex, :receipts_esreindex
-  after_create :conversation_esreindex, :receipts_esreindex
-  after_destroy :conversation_esreindex, :receipts_esreindex
-
-  def conversation_esreindex
-    self.conversation.reindex
-  end
-
-  def receipts_esreindex
-    self.receipts.each do |receipt|
-      receipt.reindex
-    end
-  end
-
   class << self
     #Sets the on deliver callback method.
     def on_deliver(callback_method)
