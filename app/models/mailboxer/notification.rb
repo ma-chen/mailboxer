@@ -38,17 +38,6 @@ class Mailboxer::Notification < ActiveRecord::Base
     ]
   end
 
-  after_save :es_reindex
-  after_create :es_reindex
-  after_destroy :es_reindex
-
-  def es_reindex
-    self.conversation.reindex if self.conversation_id.present?
-    self.receipts.each do |receipt|
-      receipt.reindex
-    end
-  end
-
   class << self
     #Sends a Notification to all the recipients
     def notify_all(recipients, subject, body, obj = nil, sanitize_text = true, notification_code=nil, send_mail=true, sender=nil)
