@@ -43,7 +43,7 @@ class Mailboxer::Notification < ActiveRecord::Base
   after_destroy :es_reindex
 
   def es_reindex
-    self.conversation.reindex if self.conversation.present?
+    self.conversation.reindex if self.conversation_id.present?
     self.receipts.each do |receipt|
       receipt.reindex
     end
