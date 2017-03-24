@@ -210,6 +210,23 @@ class Mailboxer::Conversation < ActiveRecord::Base
     !opt_outs.unsubscriber(participant).any?
   end
 
+  # tells if closed
+  def is_closed?
+    self.is_closed
+  end
+
+  # close conversation
+  def close
+    self.is_closed = true
+    self.save
+  end
+
+  # open conversation
+  def open
+    self.is_closed = false
+    self.save
+  end
+
   protected
 
   #Use the default sanitize to clean the conversation subject
